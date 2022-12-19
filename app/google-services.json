@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "325525070370",
+    "project_id": "wimc-d",
+    "storage_bucket": "wimc-d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:325525070370:android:b0ee4b0c2a8ffea023e07b",
+        "android_client_info": {
+          "package_name": "com.mrkurilin.wimc_d"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "325525070370-u4p0a30te55c45v8a8trv0epqao4ak7h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mrkurilin.wimc_d",
+            "certificate_hash": "4bd51c3bafd9e4a1594a66956fd723f0b7b9920b"
+          }
+        },
+        {
+          "client_id": "325525070370-e3a3so7kpk7conltthef1tuogobfjo0p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCtj8lI-Ds42ddrbrLkHv_O07huPQWLFWg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "325525070370-e3a3so7kpk7conltthef1tuogobfjo0p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
