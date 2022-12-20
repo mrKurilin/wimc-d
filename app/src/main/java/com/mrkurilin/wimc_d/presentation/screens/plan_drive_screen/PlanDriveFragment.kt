@@ -4,18 +4,20 @@ import android.os.Bundle
 import android.view.View
 import android.widget.*
 import androidx.fragment.app.Fragment
-import com.google.firebase.auth.FirebaseAuth
+import androidx.fragment.app.viewModels
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.ktx.database
 import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
 import com.mrkurilin.wimc_d.R
 import com.mrkurilin.wimc_d.data.Constants.Companion.REF_DESTINATIONS_KEY
-import com.mrkurilin.wimc_d.data.Constants.Companion.REF_PLANED_DRIVES_KEY
-import com.mrkurilin.wimc_d.data.model.plannedDrives.PlannedDrive
 import com.mrkurilin.wimc_d.data.utils.MyValueEventListener
+import com.mrkurilin.wimc_d.data.utils.NavigationCommands
+import com.mrkurilin.wimc_d.data.utils.TimePickerHandler
 
 class PlanDriveFragment : Fragment(R.layout.plan_drive_screen_fragment) {
+
+    private val viewModel by viewModels<PlanDriveViewModel>()
 
     private lateinit var timePicker: TimePicker
     private lateinit var fromSpinner: Spinner
@@ -32,32 +34,31 @@ class PlanDriveFragment : Fragment(R.layout.plan_drive_screen_fragment) {
         timePicker.setIs24HourView(true)
 
         cancelButton.setOnClickListener {
-            parentFragmentManager.popBackStack()
+            viewModel.onCancelButtonPressed()
         }
 
         okButton.setOnClickListener {
-            val to = toSpinner.selectedView.findViewById<TextView>(android.R.id.text1).text.toString()
-            val from = fromSpinner.selectedView.findViewById<TextView>(android.R.id.text1).text.toString()
+            val to = toSpinner.selectedItem.toString()
+            val from = fromSpinner.selectedItem.toString()
+            val time = TimePickerHandler.getTime(timePicker)
 
-            if (to == from) {
-                Toast.makeText(requireContext(), "Неверено указаны данные", Toast.LENGTH_LONG)
-                    .show()
-            } else {
-                val planner = FirebaseAuth.getInstance().currentUser!!.displayName!!
-                val hours = "%02d".format(timePicker.currentHour)
-                val minutes = "%02d".format(timePicker.currentMinute)
+            viewModel.okButtonPressed(to, from, time)
+        }
 
-                val time = "$hours:$minutes"
-                Firebase.database.reference.child(REF_PLANED_DRIVES_KEY).push().setValue(
-                    PlannedDrive(
-                        planner = planner,
-                        from = from,
-                        to = to,
-                        planTime = time
-                    )
-                )
-                parentFragmentManager.popBackStack()
+        viewModel.navigation.observe(viewLifecycleOwner) {
+            when (it) {
+                NavigationCommands.Back -> {
+                    parentFragmentManager.popBackStack()
+                }
             }
+        }
+
+        viewModel.toastMessage.observe(viewLifecycleOwner) {
+            Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
+        }
+
+        okButton.setOnClickListener {
+            parentFragmentManager.popBackStack()
         }
 
     }
@@ -66,7 +67,8 @@ class PlanDriveFragment : Fragment(R.layout.plan_drive_screen_fragment) {
         Firebase.database.reference.child(REF_DESTINATIONS_KEY)
             .addListenerForSingleValueEvent(object : MyValueEventListener() {
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    val destinations = snapshot.getValue<HashMap<String, String>>()?.values?.toTypedArray()!!
+                    val destinations =
+                        snapshot.getValue<HashMap<String, String>>()?.values?.toTypedArray()!!
                     val adapter = ArrayAdapter(
                         requireContext(),
                         android.R.layout.simple_list_item_1,
