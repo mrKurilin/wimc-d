@@ -1,4 +1,7 @@
 package com.mrkurilin.wimc_d.presentation.screens.admin_screen
 
-class AdminScreenFragment {
+import androidx.fragment.app.Fragment
+
+class AdminScreenFragment : Fragment() {
+
 }
