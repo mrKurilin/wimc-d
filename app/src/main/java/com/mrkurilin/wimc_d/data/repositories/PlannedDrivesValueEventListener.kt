@@ -15,6 +15,6 @@ class PlannedDrivesValueEventListener(
     }
 
     override fun onCancelled(error: DatabaseError) {
-
+        //do nothing
     }
 }
