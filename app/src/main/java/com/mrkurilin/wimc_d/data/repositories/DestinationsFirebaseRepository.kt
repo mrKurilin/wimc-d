@@ -4,6 +4,7 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.mrkurilin.wimc_d.data.Constants
 import com.mrkurilin.wimc_d.data.model.DestinationsRepository
+import com.mrkurilin.wimc_d.data.repositories.firebase_value_event_listeners.DestinationsValueEventListener
 
 class DestinationsFirebaseRepository : DestinationsRepository {
 

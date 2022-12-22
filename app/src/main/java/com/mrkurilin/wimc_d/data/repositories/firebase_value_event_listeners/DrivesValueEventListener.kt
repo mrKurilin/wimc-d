@@ -1,4 +1,4 @@
-package com.mrkurilin.wimc_d.data.repositories
+package com.mrkurilin.wimc_d.data.repositories.firebase_value_event_listeners
 
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError

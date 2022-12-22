@@ -1,17 +1,16 @@
-package com.mrkurilin.wimc_d.data.repositories
+package com.mrkurilin.wimc_d.data.repositories.firebase_value_event_listeners
 
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.getValue
-import com.mrkurilin.wimc_d.data.model.plannedDrive.PlannedDrive
 
-class PlannedDrivesValueEventListener(
-    private val observer: (List<PlannedDrive>) -> Unit
+class DestinationsValueEventListener(
+    private val observer: (List<String>) -> Unit
 ) : ValueEventListener {
 
     override fun onDataChange(snapshot: DataSnapshot) {
-        observer(snapshot.getValue<HashMap<String, PlannedDrive>>()!!.values.toList())
+        observer(snapshot.getValue<HashMap<String, String>>()!!.values.toList())
     }
 
     override fun onCancelled(error: DatabaseError) {
