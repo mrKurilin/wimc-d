@@ -37,9 +37,8 @@ class DriverScreenViewModel(app: Application) : AndroidViewModel(app) {
                     }!!.toTypedArray()
                     liveDestinations.postValue(destinations)
                 }
-
-
-            })
+            }
+        )
 
         carsReference.child(currentUserCarNumber).child(REF_CURRENT_STATUS).addValueEventListener(
             object : MyValueEventListener() {
