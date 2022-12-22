@@ -3,6 +3,7 @@ package com.mrkurilin.wimc_d.data.repositories
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.mrkurilin.wimc_d.data.Constants
+import com.mrkurilin.wimc_d.data.Constants.Companion.REF_CURRENT_STATUS
 import com.mrkurilin.wimc_d.data.model.car.Car
 import com.mrkurilin.wimc_d.data.model.car.CarsRepository
 
@@ -35,5 +36,11 @@ class CarsFirebaseRepository : CarsRepository {
 
     override fun observeCarsList(observer: (List<Car>) -> Unit) {
         carsFirebaseDatabaseRef.addValueEventListener(CarsValueEventListener(observer))
+    }
+
+    override fun observeCarsCurrentStatus(carNumber: String, observer: (String) -> Unit) {
+        carsFirebaseDatabaseRef.child(carNumber).child(REF_CURRENT_STATUS).addValueEventListener(
+            CarsCurrentStatusValueEventListener(observer)
+        )
     }
 }

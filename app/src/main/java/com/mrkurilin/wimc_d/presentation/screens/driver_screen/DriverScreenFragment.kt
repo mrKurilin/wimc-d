@@ -46,22 +46,16 @@ class DriverScreenFragment : Fragment(R.layout.driver_screen_fragment) {
             )
         }
 
-        destinationsListView.setOnItemClickListener { _, itemView, _, _ ->
-            val destination = itemView.findViewById<TextView>(R.id.text).text.toString()
-            viewModel.departured(destination)
+        destinationsListView.setOnItemClickListener { _, itemView, position, _ ->
+            val destination = destinationsListView.getItemAtPosition(position).toString()
+            viewModel.destinationPressed(destination)
             toggleVisibility()
         }
 
         arrivedButton.setOnClickListener {
-            viewModel.arrived()
+            viewModel.arrivedButtonPressed()
             toggleVisibility()
         }
-    }
-
-    private fun toggleVisibility() {
-        val isArrivedButtonVisible = arrivedButton.isVisible
-        destinationsListView.isVisible = isArrivedButtonVisible
-        arrivedButton.isVisible = !isArrivedButtonVisible
     }
 
     private fun initViews() {
@@ -69,5 +63,11 @@ class DriverScreenFragment : Fragment(R.layout.driver_screen_fragment) {
         currentStatusTextView = requireView().findViewById(R.id.current_status)
         destinationsListView = requireView().findViewById(R.id.destinations_listview)
         arrivedButton = requireView().findViewById(R.id.arrive_btn)
+    }
+
+    private fun toggleVisibility() {
+        val isArrivedButtonVisible = arrivedButton.isVisible
+        destinationsListView.isVisible = isArrivedButtonVisible
+        arrivedButton.isVisible = !isArrivedButtonVisible
     }
 }

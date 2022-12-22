@@ -3,13 +3,9 @@ package com.mrkurilin.wimc_d.presentation.screens.driver_screen
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.ktx.getValue
 import com.mrkurilin.wimc_d.R
-import com.mrkurilin.wimc_d.data.Constants.Companion.REF_CURRENT_STATUS
 import com.mrkurilin.wimc_d.data.model.car.Car
 import com.mrkurilin.wimc_d.data.model.plannedDrive.PlannedDrive
-import com.mrkurilin.wimc_d.data.utils.MyValueEventListener
 import com.mrkurilin.wimc_d.main.WimcApp
 
 class DriverScreenViewModel(app: Application) : AndroidViewModel(app) {
@@ -18,46 +14,50 @@ class DriverScreenViewModel(app: Application) : AndroidViewModel(app) {
     val liveDestinations = MutableLiveData<Array<String>>()
     val plannedDrivesLiveData = MutableLiveData<List<PlannedDrive>>()
 
+    var destinations: Array<String> = arrayOf()
+
     private val wimcApp = app as WimcApp
 
-    private val plannedDrivesRepository = wimcApp.providePlannedDrivesRepository()
-    private val destinationsReference = wimcApp.provideDestinations()
-    private val carsReference = wimcApp.provideCarsReference()
+    private val carsRepository = wimcApp.provideCarsRepository()
     private val currentUserCarNumber = wimcApp.provideCurrentUsersCarNumber()
-    private val prefixToRemove = app.resources.getString(R.string.departured_prefix)
 
     init {
+        val destinationsRepository = wimcApp.provideDestinationsRepository()
+        val plannedDrivesRepository = wimcApp.providePlannedDrivesRepository()
+
         plannedDrivesRepository.observePlannedDrivesList { plannedDrives ->
             plannedDrivesLiveData.postValue(plannedDrives)
         }
 
-        destinationsReference.addValueEventListener(
-            object : MyValueEventListener() {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    val destinations = snapshot.getValue<HashMap<String, String>>()?.values?.map {
-                        "Уехал на $it"
-                    }!!.toTypedArray()
-                    liveDestinations.postValue(destinations)
-                }
-            }
-        )
+        destinationsRepository.observeDestinations { destinations ->
+            val mappedDestinations = destinations.map { "Уехал на $it" }.toTypedArray()
+            this.destinations = mappedDestinations
+            val filteredDestinations = mappedDestinations.filter {
+                !it.contains(liveCurrentStatus.value.toString())
+            }.toTypedArray()
+            liveDestinations.postValue(filteredDestinations)
+        }
 
-        carsReference.child(currentUserCarNumber).child(REF_CURRENT_STATUS).addValueEventListener(
-            object : MyValueEventListener() {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    liveCurrentStatus.postValue(snapshot.getValue<String>()!!)
-                }
-            }
-        )
+        carsRepository.observeCarsCurrentStatus(currentUserCarNumber) { currentStatus ->
+            liveCurrentStatus.postValue(currentStatus)
+        }
     }
 
-    fun arrived() {
+    fun arrivedButtonPressed() {
+        val prefixToRemove = wimcApp.resources.getString(R.string.departured_prefix)
         val currentStatus = liveCurrentStatus.value!!.removePrefix(prefixToRemove)
         val car = Car(currentUserCarNumber, currentStatus)
-        carsReference.child(currentUserCarNumber).setValue(car)
+
+        carsRepository.updateCar(car)
+
+        val filteredDestinations = destinations.filter {
+            !it.contains(currentStatus)
+        }.toTypedArray()
+        liveDestinations.postValue(filteredDestinations)
     }
 
-    fun departured(destination: String) {
-        carsReference.child(currentUserCarNumber).child(REF_CURRENT_STATUS).setValue(destination)
+    fun destinationPressed(destination: String) {
+        val car = Car(currentUserCarNumber, destination)
+        carsRepository.updateCar(car)
     }
 }
