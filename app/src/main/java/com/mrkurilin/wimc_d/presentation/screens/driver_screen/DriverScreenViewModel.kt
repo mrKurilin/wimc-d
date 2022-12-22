@@ -17,7 +17,9 @@ class DriverScreenViewModel(app: Application) : AndroidViewModel(app) {
     val liveCurrentStatus = MutableLiveData<String>()
     val liveDestinations = MutableLiveData<Array<String>>()
     val plannedDrivesLiveData = MutableLiveData<List<PlannedDrive>>()
+
     private val wimcApp = app as WimcApp
+
     private val plannedDrivesRepository = wimcApp.providePlannedDrivesRepository()
     private val destinationsReference = wimcApp.provideDestinations()
     private val carsReference = wimcApp.provideCarsReference()

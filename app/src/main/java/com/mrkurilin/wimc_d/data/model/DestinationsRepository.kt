@@ -8,5 +8,5 @@ interface DestinationsRepository {
 
     fun getDestinationsList(): List<String>
 
-    fun observeDestinations(observer: (String) -> Unit): Unit
+    fun observeDestinations(observer: (List<String>) -> Unit): Unit
 }
