@@ -6,7 +6,7 @@ import android.widget.TextView
 import com.firebase.ui.database.FirebaseListAdapter
 import com.google.firebase.database.DatabaseReference
 import com.mrkurilin.wimc_d.R
-import com.mrkurilin.wimc_d.data.model.cars.Car
+import com.mrkurilin.wimc_d.data.model.car.Car
 
 class FirebaseCarsListAdapter(
     activity: Activity,

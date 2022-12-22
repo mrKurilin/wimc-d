@@ -9,11 +9,10 @@ import com.google.firebase.ktx.Firebase
 import com.mrkurilin.wimc_d.data.Constants.Companion.REF_CARS_KEY
 import com.mrkurilin.wimc_d.data.Constants.Companion.REF_DESTINATIONS_KEY
 import com.mrkurilin.wimc_d.data.Constants.Companion.REF_PLANED_DRIVES_KEY
+import com.mrkurilin.wimc_d.data.model.plannedDrive.PlannedDrivesRepository
 import com.mrkurilin.wimc_d.data.repositories.PlannedDrivesFirebaseRepository
-import com.mrkurilin.wimc_d.data.repositories.PlannedDrivesRepository
 
 class WimcApp : Application() {
-
 
     private lateinit var carsReference: DatabaseReference
     private lateinit var plannedDrivesReference: DatabaseReference
@@ -35,9 +34,6 @@ class WimcApp : Application() {
     fun provideCarsReference() = carsReference
 
     fun provideDestinations() = destinationsReference
-
-
-    fun providePlannedDrivesReference() = plannedDrivesReference
 
     fun provideCurrentUsersCarNumber(): String {
         return getCurrentUser().email!!.removeSuffix("@rencons.com")

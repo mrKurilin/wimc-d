@@ -56,11 +56,6 @@ class PlanDriveFragment : Fragment(R.layout.plan_drive_screen_fragment) {
         viewModel.toastMessage.observe(viewLifecycleOwner) {
             Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
         }
-
-        okButton.setOnClickListener {
-            parentFragmentManager.popBackStack()
-        }
-
     }
 
     private fun fillSpinners() {

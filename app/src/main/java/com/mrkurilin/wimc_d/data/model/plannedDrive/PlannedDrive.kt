@@ -1,4 +1,4 @@
-package com.mrkurilin.wimc_d.data.model.plannedDrives
+package com.mrkurilin.wimc_d.data.model.plannedDrive
 
 import android.text.format.DateFormat
 import java.util.*

@@ -3,8 +3,8 @@ package com.mrkurilin.wimc_d.presentation.screens.plan_drive_screen
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import com.mrkurilin.wimc_d.data.model.plannedDrives.PlannedDrive
-import com.mrkurilin.wimc_d.data.repositories.PlannedDrivesRepository
+import com.mrkurilin.wimc_d.data.model.plannedDrive.PlannedDrive
+import com.mrkurilin.wimc_d.data.model.plannedDrive.PlannedDrivesRepository
 import com.mrkurilin.wimc_d.data.utils.NavigationCommands
 import com.mrkurilin.wimc_d.main.WimcApp
 
