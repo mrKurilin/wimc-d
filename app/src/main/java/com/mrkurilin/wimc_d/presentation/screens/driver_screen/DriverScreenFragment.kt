@@ -2,22 +2,23 @@ package com.mrkurilin.wimc_d.presentation.screens.driver_screen
 
 import android.os.Bundle
 import android.view.View
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ListView
 import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.firebase.ui.database.FirebaseListAdapter
+import androidx.recyclerview.widget.RecyclerView
 import com.mrkurilin.wimc_d.R
-import com.mrkurilin.wimc_d.data.model.plannedDrives.PlannedDrive
+import com.mrkurilin.wimc_d.presentation.adapters.PlannedDrivesRecyclerViewAdapter
 
 class DriverScreenFragment : Fragment(R.layout.driver_screen_fragment) {
 
     private val viewModel by viewModels<DriverScreenViewModel>()
 
     private lateinit var currentStatusTextView: TextView
-    private lateinit var plannedDrivesListView: ListView
+    private lateinit var plannedDrivesRecyclerView: RecyclerView
     private lateinit var destinationsListView: ListView
     private lateinit var arrivedButton: Button
 
@@ -26,43 +27,28 @@ class DriverScreenFragment : Fragment(R.layout.driver_screen_fragment) {
 
         initViews()
 
-        viewModel.observeCurrentStatus() { currentStatus ->
+        viewModel.liveCurrentStatus.observe(viewLifecycleOwner) { currentStatus ->
             currentStatusTextView.text = currentStatus
         }
 
-        plannedDrivesListView.adapter = object : FirebaseListAdapter<PlannedDrive>(
-            requireActivity(),
-            PlannedDrive::class.java,
-            android.R.layout.simple_list_item_1,
-            viewModel.providePlannedDrivesReference()
-        ) {
-
-            override fun populateView(v: View, model: PlannedDrive, position: Int) {
-                val at = model.planTime
-                val from = model.from
-                val to = model.to
-                val planner = model.planner
-                val text = resources.getString(R.string.planned_drive, at, from, to, planner)
-                v.findViewById<TextView>(android.R.id.text1).text = text
-            }
+        val adapter = PlannedDrivesRecyclerViewAdapter()
+        plannedDrivesRecyclerView.adapter = adapter
+        viewModel.plannedDrivesLiveData.observe(viewLifecycleOwner) { plannedDrives ->
+            adapter.setItems(plannedDrives)
         }
 
-        destinationsListView.adapter = object : FirebaseListAdapter<String>(
-            requireActivity(),
-            String::class.java,
-            R.layout.destination_list_item,
-            viewModel.provideDestinations()
-        ) {
-
-            override fun populateView(view: View, destination: String, position: Int) {
-                val text = resources.getString(R.string.departured, destination)
-                view.findViewById<TextView>(R.id.text).text = text
-            }
+        viewModel.liveDestinations.observe(viewLifecycleOwner) { destinations ->
+            destinationsListView.adapter = ArrayAdapter(
+                requireContext(),
+                R.layout.destination_list_item,
+                R.id.text,
+                destinations
+            )
         }
 
         destinationsListView.setOnItemClickListener { _, itemView, _, _ ->
-            val currentStatus = itemView.findViewById<TextView>(R.id.text).text.toString()
-            viewModel.departure(currentStatus)
+            val destination = itemView.findViewById<TextView>(R.id.text).text.toString()
+            viewModel.departured(destination)
             toggleVisibility()
         }
 
@@ -79,7 +65,7 @@ class DriverScreenFragment : Fragment(R.layout.driver_screen_fragment) {
     }
 
     private fun initViews() {
-        plannedDrivesListView = requireView().findViewById(R.id.planned_drives_listview)
+        plannedDrivesRecyclerView = requireView().findViewById(R.id.planned_drives_recycler_view)
         currentStatusTextView = requireView().findViewById(R.id.current_status)
         destinationsListView = requireView().findViewById(R.id.destinations_listview)
         arrivedButton = requireView().findViewById(R.id.arrive_btn)

@@ -1,0 +1,32 @@
+package com.mrkurilin.wimc_d.data.repositories
+
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
+import com.mrkurilin.wimc_d.data.Constants
+import com.mrkurilin.wimc_d.data.model.plannedDrive.PlannedDrive
+import com.mrkurilin.wimc_d.data.model.plannedDrive.PlannedDrivesRepository
+
+class PlannedDrivesFirebaseRepository : PlannedDrivesRepository {
+
+    private val plannedDrivesFirebaseDatabaseReference = Firebase.database.reference.child(
+        Constants.REF_PLANED_DRIVES_KEY
+    )
+
+    override fun addPlannedDrive(plannedDrive: PlannedDrive) {
+        plannedDrivesFirebaseDatabaseReference.child(plannedDrive.addedAt).setValue(plannedDrive)
+    }
+
+    override fun deletePlannedDrive(plannedDrive: PlannedDrive) {
+        plannedDrivesFirebaseDatabaseReference.child(plannedDrive.addedAt).removeValue()
+    }
+
+    override fun updatePlannedDrive(plannedDrive: PlannedDrive) {
+        plannedDrivesFirebaseDatabaseReference.child(plannedDrive.addedAt).setValue(plannedDrive)
+    }
+
+    override fun observePlannedDrivesList(observer: (List<PlannedDrive>) -> Unit) {
+        plannedDrivesFirebaseDatabaseReference.addValueEventListener(
+            PlannedDrivesValueEventListener(observer)
+        )
+    }
+}

@@ -33,12 +33,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/current_status_text" />
 
-    <ListView
-        android:id="@+id/planned_drives_listview"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@id/planned_drives_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/ramka"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/planned_drives_textview"
         tools:listitem="@android:layout/simple_list_item_1" />
@@ -48,16 +49,16 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:background="@drawable/ramka"
         android:divider="@color/fui_transparent"
         android:dividerHeight="8dp"
-        android:background="@drawable/ramka"
         android:foregroundGravity="center"
         android:padding="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_max="350dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/planned_drives_listview"
+        app:layout_constraintTop_toBottomOf="@id/planned_drives_recycler_view"
         tools:listitem="@android:layout/simple_list_item_1" />
 
     <Button
@@ -69,6 +70,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/planned_drives_listview" />
+        app:layout_constraintTop_toBottomOf="@id/planned_drives_recycler_view" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
