@@ -10,9 +10,7 @@ private const val REF_DRIVES = "drives"
 
 class DrivesFirebaseRepository : DrivesRepository {
 
-    private val drivesFirebaseDatabaseRef = Firebase.database.reference.child(
-        REF_DRIVES
-    )
+    private val drivesFirebaseDatabaseRef = Firebase.database.reference.child(REF_DRIVES)
     private var drives: List<Drive> = listOf()
 
     init {
