@@ -2,16 +2,17 @@ package com.mrkurilin.wimc_d.data.repositories
 
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import com.mrkurilin.wimc_d.data.Constants
-import com.mrkurilin.wimc_d.data.Constants.Companion.REF_CURRENT_STATUS
 import com.mrkurilin.wimc_d.data.model.car.Car
 import com.mrkurilin.wimc_d.data.model.car.CarsRepository
 import com.mrkurilin.wimc_d.data.repositories.firebase_value_event_listeners.CarsCurrentStatusValueEventListener
 import com.mrkurilin.wimc_d.data.repositories.firebase_value_event_listeners.CarsValueEventListener
 
+private const val REF_CARS_KEY = "cars"
+private const val REF_CURRENT_STATUS = "currentStatus"
+
 class CarsFirebaseRepository : CarsRepository {
 
-    private val carsFirebaseDatabaseRef = Firebase.database.reference.child(Constants.REF_CARS_KEY)
+    private val carsFirebaseDatabaseRef = Firebase.database.reference.child(REF_CARS_KEY)
     private var cars: List<Car> = listOf()
 
     init {

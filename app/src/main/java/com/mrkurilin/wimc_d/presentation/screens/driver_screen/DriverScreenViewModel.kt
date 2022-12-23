@@ -24,7 +24,6 @@ class DriverScreenViewModel(app: Application) : AndroidViewModel(app) {
     private val drivesRepository = wimcApp.provideDrivesRepository()
     private val prefixToRemove = wimcApp.resources.getString(R.string.departured_prefix)
 
-
     init {
         val destinationsRepository = wimcApp.provideDestinationsRepository()
         val plannedDrivesRepository = wimcApp.providePlannedDrivesRepository()

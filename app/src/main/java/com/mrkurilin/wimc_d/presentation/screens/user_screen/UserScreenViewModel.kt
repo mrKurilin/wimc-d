@@ -12,7 +12,7 @@ class UserScreenViewModel(app: Application) : AndroidViewModel(app) {
     val carsLiveData = MutableLiveData<List<Car>>()
     val plannedDrivesLiveData = MutableLiveData<List<PlannedDrive>>()
 
-    private val wimcApp = (app as WimcApp)
+    private val wimcApp = app as WimcApp
 
     private val carsRepository = wimcApp.provideCarsRepository()
     private val plannedDrivesRepository = wimcApp.providePlannedDrivesRepository()

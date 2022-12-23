@@ -13,7 +13,7 @@ class PlanDriveViewModel(app: Application) : AndroidViewModel(app) {
     val destinationsLiveData = MutableLiveData<List<String>>()
     val toastMessage = MutableLiveData<String>()
 
-    private val wimcApp = (app as WimcApp)
+    private val wimcApp = app as WimcApp
     private val plannedDrivesRepository = wimcApp.providePlannedDrivesRepository()
     private val destinationsRepository = wimcApp.provideDestinationsRepository()
 

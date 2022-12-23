@@ -2,15 +2,16 @@ package com.mrkurilin.wimc_d.data.repositories
 
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import com.mrkurilin.wimc_d.data.Constants
 import com.mrkurilin.wimc_d.data.model.drive.Drive
 import com.mrkurilin.wimc_d.data.model.drive.DrivesRepository
 import com.mrkurilin.wimc_d.data.repositories.firebase_value_event_listeners.DrivesValueEventListener
 
+private const val REF_DRIVES = "drives"
+
 class DrivesFirebaseRepository : DrivesRepository {
 
     private val drivesFirebaseDatabaseRef = Firebase.database.reference.child(
-        Constants.REF_DRIVES
+        REF_DRIVES
     )
     private var drives: List<Drive> = listOf()
 
