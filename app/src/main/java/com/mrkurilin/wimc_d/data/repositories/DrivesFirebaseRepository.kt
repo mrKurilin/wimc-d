@@ -10,7 +10,7 @@ import com.mrkurilin.wimc_d.data.repositories.firebase_value_event_listeners.Dri
 class DrivesFirebaseRepository : DrivesRepository {
 
     private val drivesFirebaseDatabaseRef = Firebase.database.reference.child(
-        Constants.REF_PLANED_DRIVES_KEY
+        Constants.REF_DRIVES
     )
     private var drives: List<Drive> = listOf()
 

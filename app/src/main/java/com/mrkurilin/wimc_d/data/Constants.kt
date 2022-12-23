@@ -13,5 +13,7 @@ class Constants {
         const val REF_PLANED_DRIVES_KEY = "planned_drives"
 
         const val REF_CURRENT_STATUS = "currentStatus"
+
+        const val REF_DRIVES = "drives"
     }
 }

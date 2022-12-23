@@ -17,5 +17,5 @@
     <string name="car_number">Номер машины:</string>
     <string name="current_status_text">Текущий статус:</string>
     <string name="changed_at">Изменено в:</string>
-
+    <string name="drive_departured">%1$s: %2$s выехал из %3$s в %4$s</string>
 </resources>
