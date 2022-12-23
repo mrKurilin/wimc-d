@@ -14,10 +14,12 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.ktx.database
 import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
-import com.mrkurilin.wimc_d.data.Constants.Companion.REF_DRIVERS_KEY
 import com.mrkurilin.wimc_d.data.utils.MyValueEventListener
 import com.mrkurilin.wimc_d.presentation.screens.driver_screen.DriverScreenFragment
 import com.mrkurilin.wimc_d.presentation.screens.user_screen.UserScreenFragment
+
+private const val REF_DRIVERS_KEY = "drivers"
+
 
 class MainActivity : AppCompatActivity() {
 

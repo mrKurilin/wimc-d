@@ -1,6 +1,21 @@
 package com.mrkurilin.wimc_d.presentation.screens.drives_history
 
-import androidx.lifecycle.ViewModel
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MutableLiveData
+import com.mrkurilin.wimc_d.data.model.drive.Drive
+import com.mrkurilin.wimc_d.main.WimcApp
 
-class DrivesHistoryViewModel : ViewModel() {
+class DrivesHistoryViewModel(app: Application) : AndroidViewModel(app) {
+
+    val drivesLiveData = MutableLiveData<List<Drive>>()
+
+    private val wimcApp = app as WimcApp
+    private val drivesRepository = wimcApp.provideDrivesRepository()
+
+    init {
+        drivesRepository.observeDrivesList { drives ->
+            drivesLiveData.postValue(drives)
+        }
+    }
 }

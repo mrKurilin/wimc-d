@@ -4,8 +4,8 @@ import android.text.format.DateFormat
 import java.util.*
 
 data class Drive(
-    private val carNumber: String = "",
-    private val from: String = "",
-    private val to: String = "",
-    private val departureTime: String =  DateFormat.format("dd-MM-yyyy HH:mm:ss", Date().time).toString(),
+    val carNumber: String = "",
+    val from: String = "",
+    val to: String = "",
+    val departureTime: String = DateFormat.format("dd-MM-yyyy HH:mm:ss", Date().time).toString(),
 )
