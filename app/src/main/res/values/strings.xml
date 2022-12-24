@@ -18,4 +18,7 @@
     <string name="current_status_text">Текущий статус:</string>
     <string name="changed_at">Изменено в:</string>
     <string name="drive_departured">%1$s: %2$s выехал из %3$s в %4$s</string>
+    <string name="drives_history">История поездок</string>
+    <string name="add_car">Добавить машину</string>
+    <string name="add_driver">Добавить водителя</string>
 </resources>

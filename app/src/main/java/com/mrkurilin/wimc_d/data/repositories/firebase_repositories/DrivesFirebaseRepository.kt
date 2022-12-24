@@ -1,9 +1,9 @@
-package com.mrkurilin.wimc_d.data.repositories
+package com.mrkurilin.wimc_d.data.repositories.firebase_repositories
 
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.mrkurilin.wimc_d.data.model.drive.Drive
-import com.mrkurilin.wimc_d.data.model.drive.DrivesRepository
+import com.mrkurilin.wimc_d.data.repositories.DrivesRepository
 import com.mrkurilin.wimc_d.data.repositories.firebase_value_event_listeners.DrivesValueEventListener
 
 private const val REF_DRIVES = "drives"

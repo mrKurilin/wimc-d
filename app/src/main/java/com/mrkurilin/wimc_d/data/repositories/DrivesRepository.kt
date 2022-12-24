@@ -1,4 +1,6 @@
-package com.mrkurilin.wimc_d.data.model.drive
+package com.mrkurilin.wimc_d.data.repositories
+
+import com.mrkurilin.wimc_d.data.model.drive.Drive
 
 interface DrivesRepository {
 

@@ -1,4 +1,6 @@
-package com.mrkurilin.wimc_d.data.model.car
+package com.mrkurilin.wimc_d.data.repositories
+
+import com.mrkurilin.wimc_d.data.model.car.Car
 
 interface CarsRepository {
 

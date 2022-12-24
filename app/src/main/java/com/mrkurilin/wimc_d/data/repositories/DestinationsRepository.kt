@@ -1,4 +1,4 @@
-package com.mrkurilin.wimc_d.data.model
+package com.mrkurilin.wimc_d.data.repositories
 
 interface DestinationsRepository {
 

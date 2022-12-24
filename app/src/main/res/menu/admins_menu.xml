@@ -8,4 +8,17 @@
     <item
         android:id="@+id/menu_log_out"
         android:title="@string/log_out" />
+
+    <item
+        android:id="@+id/menu_drives_history"
+        android:title="@string/drives_history" />
+
+    <item
+        android:id="@+id/menu_add_car"
+        android:title="@string/add_car" />
+
+    <item
+        android:id="@+id/menu_add_driver"
+        android:title="@string/add_driver" />
+
 </menu>

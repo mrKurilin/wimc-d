@@ -3,14 +3,8 @@ package com.mrkurilin.wimc_d.main
 import android.app.Application
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.mrkurilin.wimc_d.data.model.DestinationsRepository
-import com.mrkurilin.wimc_d.data.model.car.CarsRepository
-import com.mrkurilin.wimc_d.data.model.drive.DrivesRepository
-import com.mrkurilin.wimc_d.data.model.plannedDrive.PlannedDrivesRepository
-import com.mrkurilin.wimc_d.data.repositories.CarsFirebaseRepository
-import com.mrkurilin.wimc_d.data.repositories.DestinationsFirebaseRepository
-import com.mrkurilin.wimc_d.data.repositories.DrivesFirebaseRepository
-import com.mrkurilin.wimc_d.data.repositories.PlannedDrivesFirebaseRepository
+import com.mrkurilin.wimc_d.data.repositories.*
+import com.mrkurilin.wimc_d.data.repositories.firebase_repositories.*
 
 class WimcApp : Application() {
 
@@ -28,6 +22,14 @@ class WimcApp : Application() {
 
     private val drivesRepository by lazy {
         DrivesFirebaseRepository()
+    }
+
+    private val adminsRepository by lazy {
+        AdminsFirebaseRepository()
+    }
+
+    private val driversEmailsRepository by lazy {
+        DriversEmailsFirebaseRepository()
     }
 
     fun provideCurrentUsersCarNumber(): String {
@@ -52,5 +54,13 @@ class WimcApp : Application() {
 
     fun provideDestinationsRepository(): DestinationsRepository {
         return destinationsRepository
+    }
+
+    fun provideAdminsEmailsRepository(): AdminsEmailsRepository {
+        return adminsRepository
+    }
+
+    fun provideDriversEmailsRepository(): DriversEmailsRepository {
+        return driversEmailsRepository
     }
 }

@@ -26,14 +26,12 @@ class UserScreenFragment : Fragment(R.layout.user_screen_fragment) {
 
         val carsAdapter = CarsRecyclerViewAdapter()
         carsRecyclerView.adapter = carsAdapter
-
         viewModel.carsLiveData.observe(viewLifecycleOwner) { cars ->
             carsAdapter.setItems(cars)
         }
 
         val plannedDrivesAdapter = PlannedDrivesRecyclerViewAdapter()
         plannedDrivesRecyclerView.adapter = plannedDrivesAdapter
-
         viewModel.plannedDrivesLiveData.observe(viewLifecycleOwner) { plannedDrives ->
             plannedDrivesAdapter.setItems(plannedDrives)
         }
