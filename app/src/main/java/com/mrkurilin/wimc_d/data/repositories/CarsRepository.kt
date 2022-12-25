@@ -10,8 +10,6 @@ interface CarsRepository {
 
     fun updateCar(car: Car): Unit
 
-    fun getCarsList(): List<Car>
-
     fun observeCarsList(observer: (List<Car>) -> Unit): Unit
 
     fun observeCarsCurrentStatus(carNumber: String, observer: (String) -> Unit)

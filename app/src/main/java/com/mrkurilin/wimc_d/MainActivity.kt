@@ -3,16 +3,19 @@ package com.mrkurilin.wimc_d
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.lifecycle.lifecycleScope
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
 import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
 import com.google.firebase.auth.FirebaseAuth
-import com.mrkurilin.wimc_d.main.WimcApp
+import com.mrkurilin.wimc_d.data.repositories.firebase_repositories.DriversEmailsFirebaseRepository
 import com.mrkurilin.wimc_d.presentation.screens.driver_screen.DriverScreenFragment
 import com.mrkurilin.wimc_d.presentation.screens.user_screen.UserScreenFragment
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
@@ -29,38 +32,38 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_main)
 
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        setSupportActionBar(toolbar)
+
         if (FirebaseAuth.getInstance().currentUser == null) {
-            val signInIntent = AuthUI.getInstance()
-                .createSignInIntentBuilder()
-                .build()
+            val signInIntent = AuthUI.getInstance().createSignInIntentBuilder().build()
             signInLauncher.launch(signInIntent)
         } else {
             startUsage()
         }
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.wimc_menu, menu)
+        return true
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
+        return when (item.itemId) {
             R.id.menu_settings -> {
+                Toast.makeText(this, "FUCK", Toast.LENGTH_LONG).show()
                 return true
             }
             R.id.menu_log_out -> {
                 FirebaseAuth.getInstance().signOut()
-                val signInIntent = AuthUI.getInstance()
-                    .createSignInIntentBuilder()
-                    .build()
+                val signInIntent = AuthUI.getInstance().createSignInIntentBuilder().build()
                 signInLauncher.launch(signInIntent)
-                return true
+                true
             }
             else -> {
                 throw java.lang.Exception()
             }
         }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.wimc_menu, menu)
-        return true
     }
 
     private fun onSignIn(res: FirebaseAuthUIAuthenticationResult) {
@@ -71,26 +74,17 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun startUsage() {
+    private fun startUsage() = lifecycleScope.launch {
         val currentUserEmail = FirebaseAuth.getInstance().currentUser?.email.toString()
 
-        val toolbar = findViewById<Toolbar>(R.id.toolbar)
-        toolbar.inflateMenu(R.menu.wimc_menu)
-        setSupportActionBar(toolbar)
+        val currentUserIsDriver = DriversEmailsFirebaseRepository.isDriver(currentUserEmail)
 
-        val wimcApp = application as WimcApp
-
-        val driversEmailsRepository = wimcApp.provideDriversEmailsRepository()
-
-        val fragment = if (driversEmailsRepository.isDriver(currentUserEmail)) {
+        val fragment = if (currentUserIsDriver) {
             DriverScreenFragment()
         } else {
             UserScreenFragment()
         }
 
-        supportFragmentManager.beginTransaction().replace(
-            R.id.main_container,
-            fragment
-        ).commit()
+        supportFragmentManager.beginTransaction().replace(R.id.main_container, fragment).commit()
     }
 }

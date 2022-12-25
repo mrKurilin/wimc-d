@@ -4,5 +4,5 @@ interface AdminsEmailsRepository {
 
     fun addAdmin(email: String): Unit
 
-    fun isAdmin(email: String): Boolean
+    fun observeAdminsEmails(observer: (List<String>) -> Unit)
 }

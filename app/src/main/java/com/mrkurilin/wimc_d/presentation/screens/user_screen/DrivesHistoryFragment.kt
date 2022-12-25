@@ -1,4 +1,4 @@
-package com.mrkurilin.wimc_d.presentation.screens.drives_history
+package com.mrkurilin.wimc_d.presentation.screens.user_screen
 
 import android.os.Bundle
 import android.view.View

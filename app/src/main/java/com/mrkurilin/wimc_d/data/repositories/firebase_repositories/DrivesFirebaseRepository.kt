@@ -11,13 +11,6 @@ private const val REF_DRIVES = "drives"
 class DrivesFirebaseRepository : DrivesRepository {
 
     private val drivesFirebaseDatabaseRef = Firebase.database.reference.child(REF_DRIVES)
-    private var drives: List<Drive> = listOf()
-
-    init {
-        observeDrivesList { drives ->
-            this.drives = drives
-        }
-    }
 
     override fun addDrive(drive: Drive) {
         drivesFirebaseDatabaseRef.child(drive.hashCode().toString()).setValue(drive)
@@ -25,10 +18,6 @@ class DrivesFirebaseRepository : DrivesRepository {
 
     override fun deleteDrive(drive: Drive) {
         drivesFirebaseDatabaseRef.child(drive.hashCode().toString()).removeValue()
-    }
-
-    override fun getDrivesList(): List<Drive> {
-        return drives
     }
 
     override fun observeDrivesList(observer: (List<Drive>) -> Unit) {

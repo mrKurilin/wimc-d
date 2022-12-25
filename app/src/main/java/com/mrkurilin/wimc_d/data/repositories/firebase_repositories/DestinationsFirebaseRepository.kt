@@ -10,13 +10,6 @@ private const val REF_DESTINATIONS_KEY = "destinations"
 class DestinationsFirebaseRepository : DestinationsRepository {
 
     private val destinationsRepository = Firebase.database.reference.child(REF_DESTINATIONS_KEY)
-    private var destinations: List<String> = listOf()
-
-    init {
-        observeDestinations { destinations ->
-            this.destinations = destinations
-        }
-    }
 
     override fun addDestination(destination: String) {
         val child = destinationsRepository.child(destination.hashCode().toString())
@@ -25,10 +18,6 @@ class DestinationsFirebaseRepository : DestinationsRepository {
 
     override fun deleteDestination(destination: String) {
         destinationsRepository.child(destination.hashCode().toString()).removeValue()
-    }
-
-    override fun getDestinationsList(): List<String> {
-        return destinations
     }
 
     override fun observeDestinations(observer: (List<String>) -> Unit) {

@@ -4,7 +4,7 @@ interface DriversEmailsRepository {
 
     fun addDriversEmail(email: String): Unit
 
-    fun getDriversEmailsList(): List<String>
+    suspend fun isDriver(email: String): Boolean
 
-    fun isDriver(email: String): Boolean
+    fun observeDriversEmails(observer: (List<String>) -> Unit): Unit
 }

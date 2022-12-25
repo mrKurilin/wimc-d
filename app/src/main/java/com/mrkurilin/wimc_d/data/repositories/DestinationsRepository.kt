@@ -6,7 +6,5 @@ interface DestinationsRepository {
 
     fun deleteDestination(destination: String): Unit
 
-    fun getDestinationsList(): List<String>
-
     fun observeDestinations(observer: (List<String>) -> Unit): Unit
 }

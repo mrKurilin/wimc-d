@@ -8,7 +8,5 @@ interface DrivesRepository {
 
     fun deleteDrive(drive: Drive): Unit
 
-    fun getDrivesList(): List<Drive>
-
     fun observeDrivesList(observer: (List<Drive>) -> Unit): Unit
 }

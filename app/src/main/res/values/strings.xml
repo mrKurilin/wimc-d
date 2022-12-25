@@ -21,4 +21,8 @@
     <string name="drives_history">История поездок</string>
     <string name="add_car">Добавить машину</string>
     <string name="add_driver">Добавить водителя</string>
+    <string name="cars_list">Список машин</string>
+    <string name="drivers_list">Список водителей</string>
+    <string name="admins_list">Список админов</string>
+    <string name="drives_list">История поездок</string>
 </resources>
