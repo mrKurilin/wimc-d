@@ -1,4 +1,6 @@
-package com.mrkurilin.wimc_d.data.model.car
+package com.mrkurilin.wimc_d.data.repositories
+
+import com.mrkurilin.wimc_d.data.model.car.Car
 
 interface CarsRepository {
 
@@ -7,8 +9,6 @@ interface CarsRepository {
     fun deleteCar(car: Car): Unit
 
     fun updateCar(car: Car): Unit
-
-    fun getCarsList(): List<Car>
 
     fun observeCarsList(observer: (List<Car>) -> Unit): Unit
 

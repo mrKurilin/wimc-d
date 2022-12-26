@@ -11,11 +11,17 @@ class UserScreenViewModel(app: Application) : AndroidViewModel(app) {
 
     val carsLiveData = MutableLiveData<List<Car>>()
     val plannedDrivesLiveData = MutableLiveData<List<PlannedDrive>>()
+    val isCurrentUserAdminLiveData = MutableLiveData<Boolean>()
 
     private val wimcApp = app as WimcApp
 
     private val carsRepository = wimcApp.provideCarsRepository()
     private val plannedDrivesRepository = wimcApp.providePlannedDrivesRepository()
+    private val adminsFirebaseRepository = wimcApp.provideAdminsEmailsRepository()
+
+    private val driversEmailsRepository by lazy {
+        wimcApp.provideDriversEmailsRepository()
+    }
 
     init {
         carsRepository.observeCarsList { cars ->
@@ -24,6 +30,12 @@ class UserScreenViewModel(app: Application) : AndroidViewModel(app) {
 
         plannedDrivesRepository.observePlannedDrivesList { plannedDrives ->
             plannedDrivesLiveData.postValue(plannedDrives)
+        }
+
+        adminsFirebaseRepository.observeAdminsEmails { adminsEmails ->
+            val currentUserEmail = wimcApp.getCurrentUser().email
+            val isCurrentUserAdmin = adminsEmails.contains(currentUserEmail)
+            isCurrentUserAdminLiveData.postValue(isCurrentUserAdmin)
         }
     }
 }

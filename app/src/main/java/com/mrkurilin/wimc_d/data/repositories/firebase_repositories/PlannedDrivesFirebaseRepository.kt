@@ -1,9 +1,9 @@
-package com.mrkurilin.wimc_d.data.repositories
+package com.mrkurilin.wimc_d.data.repositories.firebase_repositories
 
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.mrkurilin.wimc_d.data.model.plannedDrive.PlannedDrive
-import com.mrkurilin.wimc_d.data.model.plannedDrive.PlannedDrivesRepository
+import com.mrkurilin.wimc_d.data.repositories.PlannedDrivesRepository
 import com.mrkurilin.wimc_d.data.repositories.firebase_value_event_listeners.PlannedDrivesValueEventListener
 
 private const val REF_PLANED_DRIVES_KEY = "planned_drives"

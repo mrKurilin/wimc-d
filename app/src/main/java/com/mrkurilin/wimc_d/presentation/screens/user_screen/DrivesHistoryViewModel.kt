@@ -1,4 +1,4 @@
-package com.mrkurilin.wimc_d.presentation.screens.drives_history
+package com.mrkurilin.wimc_d.presentation.screens.user_screen
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel

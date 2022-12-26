@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/cars_list"
+        android:title="@string/cars_list" />
+
+    <item
+        android:id="@+id/drivers_list"
+        android:title="@string/drivers_list" />
+
+    <item
+        android:id="@+id/admins_list"
+        android:title="@string/admins_list" />
+
+    <item
+        android:id="@+id/drives_list"
+        android:title="@string/drives_list" />
+
+</menu>

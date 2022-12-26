@@ -1,4 +1,4 @@
-package com.mrkurilin.wimc_d.presentation.screens.plan_drive_screen
+package com.mrkurilin.wimc_d.presentation.screens.user_screen
 
 import android.os.Bundle
 import android.view.View
