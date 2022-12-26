@@ -3,7 +3,6 @@ package com.mrkurilin.wimc_d
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
@@ -51,7 +50,6 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.menu_settings -> {
-                Toast.makeText(this, "FUCK", Toast.LENGTH_LONG).show()
                 return true
             }
             R.id.menu_log_out -> {
@@ -77,9 +75,9 @@ class MainActivity : AppCompatActivity() {
     private fun startUsage() = lifecycleScope.launch {
         val currentUserEmail = FirebaseAuth.getInstance().currentUser?.email.toString()
 
-        val currentUserIsDriver = DriversEmailsFirebaseRepository.isDriver(currentUserEmail)
+        val IsCurrentUserDriver = DriversEmailsFirebaseRepository.isDriver(currentUserEmail)
 
-        val fragment = if (currentUserIsDriver) {
+        val fragment = if (IsCurrentUserDriver) {
             DriverScreenFragment()
         } else {
             UserScreenFragment()
